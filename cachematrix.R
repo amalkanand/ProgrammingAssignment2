@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Creates the program to cache the matrix 
+## so that inverison takes less time
 
-## Write a short comment describing this function
+
+## Creates the function to cache the matrix
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  Matinv <- NULL
+  set <- function(y){
+    x <<- y
+    Matinv <<- NULL
+  }
+  get <- function() x
+  setMatInverse <- function(solveMatrixInv) Matinv <<- solveMatrixInv
+  getMatInverse <- function() Matinv
+  list(set = set, get = get, setMatInverse = setMatInverse, getMatInverse = getMatInverse)
 }
 
 
-## Write a short comment describing this function
+## Funtion to check on cache and calculate inverse
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  inv <- x$getMatInverse()
+  if(!is.null(Matinv)){
+    message("getting cached data")
+    return(Matinv)
+  }
+  data <- x$get()
+  inv <- solve(data)
+  x$setMatInverse(inv)
+  inv
 }
